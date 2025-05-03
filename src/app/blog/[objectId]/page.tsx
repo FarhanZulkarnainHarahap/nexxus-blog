@@ -1,8 +1,9 @@
 import { posts } from "@/app/data/blog-data/post";
 import Image from "next/image";
 import Link from "next/link";
+import { Props } from "@/app/data/blog-data/types/data-post";
 
-export default function BlogPage({ params }: { params: { objectId: string } }) {
+export default function BlogPage({ params }: Props) {
   const post = posts.find((p) => p.objectId === params.objectId);
 
   if (!post) {

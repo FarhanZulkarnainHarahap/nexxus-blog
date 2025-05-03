@@ -1,4 +1,9 @@
 // data/posts.ts
+interface type Props = {
+  params: {
+    objectId: string;
+  };
+};
 
 export const posts = [
   {
