@@ -2,7 +2,6 @@ import HeroSection from "@/components/home-components/hero-section";
 import FeaturedPosts from "@/components/home-components/featured-post";
 import PopularCategories from "@/components/home-components/popular-categories";
 import CallToAction from "@/components/home-components/call-to-action";
-import Footer from "@/components/home-components/footer";
 import Head from "next/head";
 
 export default function HomePage() {
@@ -27,7 +26,6 @@ export default function HomePage() {
         <FeaturedPosts />
         <PopularCategories />
         <CallToAction />
-        <Footer />
       </main>
     </>
   );
