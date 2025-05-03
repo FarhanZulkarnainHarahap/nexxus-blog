@@ -1,0 +1,10 @@
+<svg width="200" height="100" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Garis atas (mirror - 170px) -->
+  <line x1="190" y1="20" x2="20" y2="20" stroke="white" stroke-width="6" stroke-linecap="round" />
+  
+  <!-- Garis tengah (mirror - 102px) -->
+  <line x1="190" y1="40" x2="88" y2="40" stroke="white" stroke-width="6" stroke-linecap="round" />
+  
+  <!-- Garis bawah (mirror - 41px) -->
+  <line x1="190" y1="60" x2="149" y2="60" stroke="white" stroke-width="6" stroke-linecap="round" />
+</svg>

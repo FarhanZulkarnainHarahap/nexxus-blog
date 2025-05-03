@@ -1,0 +1,10 @@
+<svg width="200" height="100" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Garis atas (paling panjang - 170px) -->
+  <line x1="10" y1="20" x2="180" y2="20" stroke="white" stroke-width="6" stroke-linecap="round" />
+  
+  <!-- Garis tengah (40% lebih pendek - 102px) -->
+  <line x1="10" y1="40" x2="112" y2="40" stroke="white" stroke-width="6" stroke-linecap="round" />
+  
+  <!-- Garis bawah (60% lebih pendek dari tengah - 41px) -->
+  <line x1="10" y1="60" x2="51" y2="60" stroke="white" stroke-width="6" stroke-linecap="round" />
+</svg>

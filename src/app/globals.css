@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+@import "tailwindcss";
+
+@theme inline {
+  --font-Righteous: "Righteous", sans-serif;
+}
+html {
+  scroll-behavior: smooth;
+}
+/* From Uiverse.io by Gaurav-WebDev */
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+.scrollbar-thumb-gray-600::-webkit-scrollbar {
+  height: 6px;
+}
+.scrollbar-thumb-gray-600::-webkit-scrollbar-thumb {
+  background-color: #4b5563;
+  border-radius: 9999px;
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+.scrollbar-thumb-gray-600::-webkit-scrollbar {
+  height: 6px;
+}
+.scrollbar-thumb-gray-600::-webkit-scrollbar-thumb {
+  background-color: #4b5563;
+  border-radius: 9999px;
+}
