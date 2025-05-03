@@ -8,7 +8,7 @@ type BlogPageProps = {
   };
 };
 
-export default function BlogPage({ params }: { params: { objectId: string } }) {
+export default function BlogPage({ params }: BlogPageProps) {
   const post = posts.find((p) => p.objectId === params.objectId);
 
   if (!post) {
