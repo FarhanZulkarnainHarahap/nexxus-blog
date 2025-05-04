@@ -1,64 +1,33 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import SearchFilter from "@/components/blog-components/searchFilter-components";
-import SidebarCategory from "@/components/blog-components/CategorySidebar"; // Ganti dari CategorySidebar
-import BlogList from "@/components/blog-components/BlogList";
-
-interface Article {
-  objectId: string;
-  title: string;
-  preview: string;
-  created: number;
-  image: string;
-  category: { name: string };
-}
+import { useState } from "react";
+import { posts } from "@/app/data/blog/posts";
+import BlogCard from "@/components/blog-components/BlockCard";
+import CategorySidebar from "@/components/blog-components/CategorySidebar";
+import SearchBar from "@/components/blog-components/searchFilter-components";
+import { Post } from "@/app/data/blog/type";
 
 export default function BlogPage() {
-  const searchParams = useSearchParams();
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState<string>("");
+  const [category, setCategory] = useState<string>("all");
 
-  const categoryFilter = searchParams?.get("category") || "";
-  const searchFilter = search.toLowerCase();
-
-  useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        const res = await fetch(
-          "https://earneststage-us.backendless.app/api/data/Articles?loadRelations=category"
-        );
-        const data = await res.json();
-        setArticles(data);
-      } catch (error) {
-        console.error("Gagal fetch artikel:", error);
-      }
-    };
-
-    fetchArticles();
-  }, []);
-
-  const filteredArticles = articles.filter((article) => {
-    const matchesCategory = categoryFilter
-      ? article.category.name === categoryFilter
-      : true;
-    const matchesSearch = article.title.toLowerCase().includes(searchFilter);
-    return matchesCategory && matchesSearch;
-  });
+  const filteredPosts: Post[] = posts
+    .filter((post) => category === "all" || post.category === category)
+    .filter((post) => post.title.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div className="flex flex-col md:flex-row p-4 gap-4 pt-32">
-      {/* Sidebar menggunakan komponen baru */}
-      <div className="w-full md:w-1/4">
-        <SidebarCategory />
+    <div className="min-h-screen bg-gray-100 p-6 pt-32">
+      <div className="grid md:grid-cols-4 gap-6">
+        <div className="md:col-span-3">
+          <SearchBar search={search} setSearch={setSearch} />
+          {filteredPosts.map((post) => (
+            <BlogCard key={post.objectId} post={post} />
+          ))}
+        </div>
+        <div>
+          <CategorySidebar active={category} setActive={setCategory} />
+        </div>
       </div>
-
-      {/* Main content */}
-      <main className="flex-1">
-        <SearchFilter search={search} onSearchChange={setSearch} />
-        <BlogList articles={filteredArticles} />
-      </main>
     </div>
   );
 }

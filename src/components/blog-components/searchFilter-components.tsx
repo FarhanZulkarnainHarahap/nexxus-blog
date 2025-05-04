@@ -1,27 +1,16 @@
-"use client";
-
-import { ChangeEvent } from "react";
-
-interface SearchFilterProps {
+type Props = {
   search: string;
-  onSearchChange: (value: string) => void;
-}
+  setSearch: (value: string) => void;
+};
 
-export default function SearchFilter({
-  search,
-  onSearchChange,
-}: SearchFilterProps) {
+export default function SearchBar({ search, setSearch }: Props) {
   return (
-    <div className="mb-4">
-      <input
-        type="text"
-        value={search}
-        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          onSearchChange(e.target.value)
-        }
-        placeholder="Search articles..."
-        className="w-full p-2 rounded-md border border-gray-600 bg-gray-800 text-white"
-      />
-    </div>
+    <input
+      type="text"
+      placeholder="Search articles..."
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      className="w-full p-2 border rounded mb-4"
+    />
   );
 }
