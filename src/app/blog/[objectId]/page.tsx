@@ -2,28 +2,27 @@
 import Image from "next/image";
 import Link from "next/link";
 
-interface Article {
-  objectId: string;
-  title: string;
-  content: string;
-  created: number;
-  image: string;
-  category: { name: string };
-}
-
 export default async function BlogDetailPage({
   params,
 }: {
-  params: { objectId: string };
+  params: Promise<{ objectId: string }>;
 }) {
-  const { objectId } = params;
+  const { objectId } = await params;
   const res = await fetch(
-    `https://earneststage-us.backendless.app/api/data/Articles/${objectId}`
+    `https://earneststage-us.backendless.app/api/data/Articles/${objectId}?loadRelations=category`
   );
-  const data: Article = await res.json();
+  const data: {
+    objectId: string;
+    title: string;
+    content: string;
+    created: number;
+    image: string;
+    category: { name: string };
+  } = await res.json();
+  console.log(data);
 
   return (
-    <div className="bg-gradient-to-br from-gray-800 to-gray-900 text-white min-h-screen p-6">
+    <div className="bg-gradient-to-br from-gray-800 to-gray-900 text-white min-h-screen p-6 pt-32">
       <div className="max-w-3xl mx-auto">
         <Link
           href="/blog"

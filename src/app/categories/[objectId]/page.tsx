@@ -64,7 +64,7 @@ export default function CategoryDetailPage() {
     return <div className="p-8 text-red-500">Kategori tidak ditemukan</div>;
 
   return (
-    <div className="p-8 min-h-create-screen bg-gradient-to-br from-gray-800 to-gray-900 text-violet-900 pt-32">
+    <div className="p-8 min-h-screen bg-gradient-to-br from-gray-800 to-gray-900 text-violet-900 pt-32">
       <h1 className="text-3xl font-bold mb-4">{category.name}</h1>
       <p className="mb-8 text-gray-600">
         {category.description || "Tidak ada deskripsi."}
