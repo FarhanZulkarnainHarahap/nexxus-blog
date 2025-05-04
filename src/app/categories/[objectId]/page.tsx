@@ -1,58 +1,89 @@
-import { posts } from "@/app/data/categories-data/pots-categories";
+// app/categories/[objectId]/page.tsx
+"use client";
 
-import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 
-type BlogPageProps = {
-  params: {
-    objectId: string;
-  };
-};
+interface Article {
+  objectId: string;
+  title: string;
+  preview: string;
+  created: number;
+  image?: string;
+  category: { name: string };
+}
 
-export default function BlogPage({ params }: BlogPageProps) {
-  const post = posts.find((p) => p.id === params.objectId);
+interface Category {
+  objectId: string;
+  name: string;
+  description?: string;
+}
 
-  if (!post) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900">
-        <p className="text-center text-red-500 text-lg">
-          Artikel tidak ditemukan
-        </p>
-      </div>
-    );
-  }
+export default function CategoryDetailPage() {
+  const { objectId } = useParams();
+  const [category, setCategory] = useState<Category | null>(null);
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!objectId) return;
+
+    const fetchData = async () => {
+      try {
+        const [catRes, articlesRes] = await Promise.all([
+          fetch(
+            `https://earneststage-us.backendless.app/api/data/categories/${objectId}`
+          ),
+          fetch(
+            "https://earneststage-us.backendless.app/api/data/Articles?loadRelations=category"
+          ),
+        ]);
+
+        const catData = await catRes.json();
+        const allArticles = await articlesRes.json();
+
+        const filteredArticles = allArticles.filter(
+          (article: Article) => article.category?.name === catData.name
+        );
+
+        setCategory(catData);
+        setArticles(filteredArticles);
+      } catch (error) {
+        console.error("Error fetching category detail:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [objectId]);
+
+  if (loading) return <div className="p-8">Loading...</div>;
+
+  if (!category)
+    return <div className="p-8 text-red-500">Kategori tidak ditemukan</div>;
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-800 to-gray-900 py-12 px-4 md:px-16">
-      <article className="max-w-4xl mx-auto bg-gradient-to-br from-gray-700 to-gray-800 p-8 rounded-2xl shadow-md text-gray-100">
-        {/* Tombol Kembali */}
-        <div className="mb-6">
-          <Link href="/categories">
-            <button className="bg-violet-600 hover:bg-violet-700 text-white py-2 px-4 rounded-lg transition duration-200">
-              ← Kembali ke categories
-            </button>
-          </Link>
-        </div>
+    <div className="p-8 min-h-create-screen bg-gradient-to-br from-gray-800 to-gray-900 text-violet-900 pt-32">
+      <h1 className="text-3xl font-bold mb-4">{category.name}</h1>
+      <p className="mb-8 text-gray-600">
+        {category.description || "Tidak ada deskripsi."}
+      </p>
 
-        {/* Judul dan Metadata */}
-        <header className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-violet-400 mb-2">
-            {post.title}
-          </h1>
-          <p className="text-sm italic text-gray-400 mt-1">
-            Kategori: {post.categoryId}
-          </p>
-        </header>
-
-        {/* Konten */}
-        <div className="text-lg leading-relaxed text-justify space-y-4">
-          <p>{post.excerpt}</p>
-        </div>
-
-        {/* Footer */}
-        <footer className="mt-10 text-center text-sm text-gray-400">
-          &copy; {new Date().getFullYear()} Farhan Zulkarnaen Harahap
-        </footer>
-      </article>
-    </main>
+      <h2 className="text-2xl font-semibold mb-4">
+        Recent Posts in {category.name}
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {articles.map((article) => (
+          <div
+            key={article.objectId}
+            className="bg-white p-4 rounded-xl shadow"
+          >
+            <h3 className="text-lg font-bold mb-2">{article.title}</h3>
+            <p className="text-sm text-gray-600">{article.preview}</p>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
