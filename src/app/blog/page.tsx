@@ -50,9 +50,7 @@ export default function BlogPage() {
   return (
     <div className="flex flex-col md:flex-row p-4 gap-4 pt-32">
       {/* Sidebar menggunakan komponen baru */}
-      <div className="w-full md:w-1/4">
-        <SidebarCategory />
-      </div>
+      <div className="w-full md:w-1/4"></div>
 
       {/* Main content */}
       <main className="flex-1">
