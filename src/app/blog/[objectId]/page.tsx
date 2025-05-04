@@ -16,9 +16,9 @@ export default async function BlogDetailPage({
 }: {
   params: { objectId: string };
 }) {
-  const { objectId } = await params;
+  const { objectId } = params;
   const res = await fetch(
-    `https://earneststage-us.backendless.app/api/data/Articles/${objectId}?loadRelations=category`
+    `https://earneststage-us.backendless.app/api/data/Articles/${objectId}`
   );
   const data: Article = await res.json();
 
