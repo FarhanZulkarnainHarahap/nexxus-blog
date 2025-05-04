@@ -43,10 +43,10 @@ export default function BlogPost({ params }: { params: tParams }) {
   }
 
   return (
-    <article className="max-w-4xl mx-auto px-4 sm:px-6 pt-32">
+    <article className="w-full mx-auto px-4 sm:px-6 pt-32 bg-gradient-to-br from-gray-800 to-gray-900 text-violet-900 p-10">
       <Link
         href="/"
-        className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-4 sm:mb-6"
+        className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-4 sm:mb-6 "
       >
         <svg
           className="w-4 h-4 mr-2"
@@ -77,15 +77,15 @@ export default function BlogPost({ params }: { params: tParams }) {
           />
         </div>
 
-        <div className="p-4 sm:p-6 md:p-8">
+        <div className="p-4 sm:p-6 md:p-8 bg-gradient-to-br from-gray-600 to-gray-700 text-violet-900">
           <div className="flex flex-wrap items-center gap-2 mb-3 sm:mb-4">
             <span className="inline-block px-3 py-1 text-xs font-semibold text-blue-600 bg-blue-100 rounded-full">
               {post.category}
             </span>
-            <span className="text-sm text-gray-500">{post.date}</span>
+            <span className="text-sm text-violet-300">{post.date}</span>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-violet-900 mb-3 sm:mb-4">
             {post.title}
           </h1>
 
@@ -98,11 +98,11 @@ export default function BlogPost({ params }: { params: tParams }) {
                 className="object-cover"
               />
             </div>
-            <span className="text-gray-700">{post.author}</span>
+            <span className="text-violet-700">{post.author}</span>
           </div>
 
           <div
-            className="prose prose-sm sm:prose lg:prose-lg max-w-none text-gray-700"
+            className="prose prose-sm sm:prose lg:prose-lg max-w-none text-violet-300"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
         </div>
