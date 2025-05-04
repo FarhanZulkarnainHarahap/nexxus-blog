@@ -1,16 +1,18 @@
 type Props = {
   search: string;
-  setSearch: (value: string) => void;
+  setSearch: (val: string) => void;
 };
 
-export default function SearchBar({ search, setSearch }: Props) {
+export default function SearchAndFilter({ search, setSearch }: Props) {
   return (
-    <input
-      type="text"
-      placeholder="Search articles..."
-      value={search}
-      onChange={(e) => setSearch(e.target.value)}
-      className="w-full p-2 border rounded mb-4"
-    />
+    <div className="mb-4">
+      <input
+        type="text"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        placeholder="Search articles..."
+        className="w-full p-2 border rounded"
+      />
+    </div>
   );
 }
